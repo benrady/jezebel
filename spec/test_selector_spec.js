@@ -1,5 +1,9 @@
 describe('test selector', function() {
-  var selector = require('jezebel/test_selector');
+  var selector;
+
+  beforeEach(function() {
+    selector = require('jezebel/test_selector');
+  });
 
   describe('find', function() {
     it('runs a single spec if thats all that changed', function() {

@@ -1,4 +1,4 @@
-= Jezebel - a Node.js REPL and Continuous Test runner for Jasmine
+= Jezebel - a Node.js REPL and continuous test runner for Jasmine
 
 If you're writing tests using Node.js and Jasmine, Jezebel will help you get faster feedback. It runs your tests continuously (on each change to your code), and provides a shell (a.k.a REPL -- Read, Evaluate, Print, Loop) that lets you interact with your project and your tests.
 

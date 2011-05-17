@@ -9,6 +9,7 @@ describe('jezebel', function() {
     session = {context: {}}; 
     spyOn(jezebel.repl, 'start').andReturn(session);
     spyOn(watcher, 'watchFiles');
+    spyOn(childProcess, 'spawn');
     spyOn(process.stdin, 'emit');
     spyOn(require('path'), 'exists').andCallFake(function(file, callback) {
       expect(file).toEqual(process.cwd() + '/.jezebel');
@@ -17,10 +18,10 @@ describe('jezebel', function() {
     require(process.cwd() + '/.jezebel').settings = settings = {};
   });
 
-  function binDir() {
+  function rootDir() {
     var path = require('path')
     var fs = require('fs');
-    return fs.realpathSync(path.dirname(fs.realpathSync(__filename)) + '/../bin');
+    return fs.realpathSync(path.dirname(fs.realpathSync(__filename)) + '/..');
   }
 
   function expectReplEval(statement) {
@@ -30,6 +31,10 @@ describe('jezebel', function() {
   }
 
   describe('run', function() {
+    beforeEach(function() {
+      childProcess.spawn.andReturn(process);
+    });
+
     it('watches for all the files in the specified directory', function() {
       jezebel.run([], {});
       expect(watcher.watchFiles).toHaveBeenCalledWith(process.cwd(), jezebel.fileChanged);
@@ -50,7 +55,7 @@ describe('jezebel', function() {
   describe('fileChanged', function() {
     beforeEach(function() {
       spyOn(console, 'log');
-      spyOn(childProcess, 'spawn').andReturn(process);
+      childProcess.spawn.andReturn(process);
     });
 
     it('runs tests if the file has changed', function() {
@@ -77,7 +82,7 @@ describe('jezebel', function() {
     var child;
 
     beforeEach(function() {
-      spyOn(childProcess, 'spawn').andReturn(child = {
+      childProcess.spawn.andReturn(child = {
         stdout: jasmine.createSpyObj('stdout', ['addListener']),
         stderr: jasmine.createSpyObj('stderr', ['addListener']),
         on: jasmine.createSpy('on')
@@ -86,7 +91,7 @@ describe('jezebel', function() {
 
     it('runs the specified tests', function() {
       jezebel.runTests(['spec']);
-      expect(childProcess.spawn).toHaveBeenCalledWith(binDir() + '/jessie', ['spec']);
+      expect(childProcess.spawn).toHaveBeenCalledWith(rootDir() + '/node_modules/jessie/bin/jessie', ['spec']);
     });
 
     it('writes stdout to sys.print', function() {
