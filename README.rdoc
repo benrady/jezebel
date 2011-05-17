@@ -1,36 +1,21 @@
-= Jessie - a Node runner for Jasmine
+= Jezebel - a Node.js REPL and Continuous Test runner for Jasmine
 
-Jessie is a Node runner for Jasmine. It was created to provide better reporting on failures, more modular design, easier creation of formatters and optional syntactic sugar.  
+If you're writing tests using Node.js and Jasmine, Jezebel will help you get faster feedback. It runs your tests continuously (on each change to your code), and provides a shell (a.k.a REPL -- Read, Evaluate, Print, Loop) that lets you interact with your project and your tests.
 
 === Installation
 
 Stable version is available on npm, so you can install by using:
 
-  npm install jessie
+  npm install jezebel
   
 If you want to install the edge development version, simply clone this repo and install from it:
 
-  git clone git://github.com/futuresimple/jessie.git
-  npm install ./jessie
-
-=== Running Tests
-
-  $ jessie
-  Usage:
-    jessie [OPTIONS] [spec dirs/files]
-
-  Options: 
-    -f, --format [STRING]  Output format to use (Default is progress)
-    -v, --version          Display the current version
-    -h, --help             Display help and usage details
-  
-Jessie will run specs in any folder you specify, but it will automatically load up 'spec/spec_helper.js' if it is present.
-
-For details on how to use Jasmine, consult the Jasmine docs at [https://github.com/pivotal/jasmine/wiki]
+  git clone git://github.com/benrady/jezebel.git
+  npm install ./jezebel
 
 === Using Jezebel
 
-Jezebel is a continuous test runner and REPL (Read, Evaluate, Print, Loop) for Jessie. You can run it like so:
+First, be sure that node_modules/.bin is included in your PATH.
 
   $ jezebel 
   > runTests()
@@ -43,55 +28,10 @@ Jezebel is a continuous test runner and REPL (Read, Evaluate, Print, Loop) for J
 
 Jezebel runs all your tests when it starts, and every time a .js file in or under the current directory is changed. You can force a test run by calling the runTests() function from the REPL. Other functions will become available as jezebel improves.
 
-=== Formatters
-
-Currently Jessie ships with 2 formatters: progress and nested. By default it uses progress. If you want to use nested, you can do it by specifying the -f option:
-
-  jessie spec -f nested
-
-=== Pending specs
-
-Jessie extends Jasmine with the ability of marking pending specs. All you have to do is call the pending() function within your spec, like this:
-
-  it("should be pending", function() {
-    pending()
-  })
-  
-Optionally, you can provide a message that will appear within spec results, simply by sending an argument to pending(), like this:
-
-  it("should be pending", function() {
-    pending("Add real spec here!")
-  })
-
-=== Sugar
-
-If you want, Jessie can extend the built-in prototypes with syntactic sugar, so you can use methods like this:
-
-  variable.should_be("Foo Boo")
-  variable.should_not_be(4)
-  variable.should_match("Boo")
-  variable.should_be_a(String)
-
-The number of these methods is limited and will possibly grow with time.
-  
-To use them, put this line into spec/spec_helper.js
-
-  require('jessie').sugar()
-
-== Development
-
-Jessie is a fresh project, so forks are very welcome! 
-
-=== Testing
-
-Tests are in Jasmine and run on Jessie. In order to run them, use the binary in the bin folder (be sure to run `npm install` first to get the dependencies)
-  
-  bin/jessie spec
-
 == Acknowledgement
 
-jessie is largely based on https://github.com/mhevery/jasmine-node. The goal of jessie is to be more modular and configurable.
+Under the covers, Jezebel uses Jessie (https://github.com/futuresimple/jessie) to run tests.
 
 === Copyright
 
-Copyright (c) 2011 Marcin Bunsch, Future Simple Inc. See LICENSE for details.
+Copyright (c) 2011 Ben Rady. See LICENSE for details.

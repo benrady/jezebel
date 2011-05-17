@@ -1,0 +1,27 @@
+var utils = require('jes_utils');
+var stats;
+
+exports.settings = {
+  onStart: function(replSession) {
+    stats = {
+      passes: 0,
+      fails: 0,
+      changes: 0
+    };
+  },
+  onPass: function() {
+    stats.passes += 1;
+  },
+  onFail: function() {
+    stats.fails += 1;
+  },
+  onChange: function(path, curr, prev) {
+    stats.changes += 1;
+  }
+};
+
+// Run me from the REPL to see your test stats!
+exports.stats = function() {
+  return stats;
+}
+exports.files = utils.projectFiles;
