@@ -3,11 +3,11 @@ describe('watcher', function() {
 
   beforeEach(function() {
     watcher = require('jezebel/watcher');
-    watcher.reset();
     fs = require('fs');
     spyOn(fs, 'watchFile');
     spyOn(fs, 'unwatchFile');
     spyOn(fs, 'stat');
+    spyOn(fs, 'readdir');
   });
 
   describe('watching a single file', function() {
@@ -27,17 +27,10 @@ describe('watcher', function() {
       fs.watchFile.invokeCallback('curr', 'prev');
       expect(callback).toHaveBeenCalledWith('filename', 'curr' , 'prev');
     });
-
-    it('only watches a file once', function() {
-      watcher.watchFiles('filename', callback);
-      watcher.watchFiles('filename', callback);
-      expect(fs.watchFile.callCount).toEqual(1);
-    });
   });
 
   describe('watching a directory', function() {
     beforeEach(function() {
-      spyOn(fs, 'readdir');
       watcher.watchFiles('dirName', function() {});
       fs.stat.invokeCallback('', {isDirectory : function(){return true;}});
     });
@@ -62,5 +55,20 @@ describe('watcher', function() {
       expect(fs.watchFile.callCount).toEqual(1);
       expect(fs.watchFile.argsForCall[0][0]).toEqual('dirName/file0');
     });
+  });
+
+  it('only watches a file once', function() {
+    watcher.watchFiles('dirName', function() {});
+    fs.stat.invokeCallback('', {isDirectory : function(){return true;}});
+    var dirChanged = fs.watchFile.argsForCall[0][2];
+    fs.readdir.invokeCallback('', ['file0']);
+
+    dirChanged();
+    fs.readdir.invokeCallback('', ['file0']);
+    fs.stat.invokeCallback('', {isDirectory : function(){return false;}});
+
+    expect(fs.watchFile.callCount).toEqual(2);
+    expect(fs.watchFile.argsForCall[0][0]).toEqual('dirName');
+    expect(fs.watchFile.argsForCall[1][0]).toEqual('dirName/file0');
   });
 });
