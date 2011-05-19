@@ -14,6 +14,6 @@
   "engines": {
     "node": ">=0.4.0"
   },
-  "dependencies": ["jessie"],
+  "dependencies": {"jessie": ">=0.3.1},
   "devDependencies": {}
 }
