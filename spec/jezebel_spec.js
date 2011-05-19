@@ -89,6 +89,11 @@ describe('jezebel', function() {
       });
     });
 
+    it('runs all tests in the spec directory by default', function() {
+      jezebel.runTests();
+      expect(childProcess.spawn).toHaveBeenCalledWith(rootDir() + '/node_modules/jessie/bin/jessie', ['spec']);
+    });
+
     it('runs the specified tests', function() {
       jezebel.runTests(['spec']);
       expect(childProcess.spawn).toHaveBeenCalledWith(rootDir() + '/node_modules/jessie/bin/jessie', ['spec']);
