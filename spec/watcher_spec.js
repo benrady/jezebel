@@ -1,5 +1,5 @@
 describe('watcher', function() {
-  var watcher, fs;
+  var watcher, fs, sys;
 
   beforeEach(function() {
     watcher = require('jezebel/watcher');
@@ -8,6 +8,8 @@ describe('watcher', function() {
     spyOn(fs, 'unwatchFile');
     spyOn(fs, 'stat');
     spyOn(fs, 'readdir');
+    sys = require('sys');
+    spyOn(sys, 'error');
   });
 
   describe('watching a single file', function() {
@@ -70,5 +72,11 @@ describe('watcher', function() {
     expect(fs.watchFile.callCount).toEqual(2);
     expect(fs.watchFile.argsForCall[0][0]).toEqual('dirName');
     expect(fs.watchFile.argsForCall[1][0]).toEqual('dirName/file0');
+  });
+
+  it('writes errors to sys.error', function() {
+    watcher.watchFiles('dirName', function() {});
+    fs.stat.invokeCallback(true);
+    expect(sys.error).toHaveBeenCalled();
   });
 });
