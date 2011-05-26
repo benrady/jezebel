@@ -2,7 +2,7 @@
   "author": "Ben Rady <benrady@gmail.com> (http://benrady.com)",
   "name": "jezebel",
   "description": "A REPL and continuous test runner for Jasmine tests",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "homepage": "http://github.com/benrady/jezebel",
   "repository": {
     "type": "git",
@@ -15,5 +15,5 @@
     "node": ">=0.4.0"
   },
   "dependencies": {"jessie": ">=0.3.1"},
-  "devDependencies": {}
+  "bin": {"jezebel": "./bin/jezebel"}
 }

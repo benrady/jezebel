@@ -6,7 +6,7 @@ If you're writing tests using Node.js and Jasmine, Jezebel will help you get fas
 
 Stable version is available on npm, so you can install by using:
 
-  npm install jezebel
+  npm install jezebel --global
   
 If you want to install the edge development version, simply clone this repo and install from it:
 
@@ -27,6 +27,14 @@ First, be sure that node_modules/.bin is included in your PATH.
   > 
 
 Jezebel runs all your tests when it starts, and every time a .js file in or under the current directory is changed. You can force a test run by calling the runTests() function from the REPL. Other functions will become available as jezebel improves.
+
+=== Customization
+
+Jezebel can be customized by creating a .jezebel file in the root of your project (where Jezebel is run from). This file is loaded as a module and any functions that it exports will be available in the REPL. By exporting a settings object you can configure the behavior of Jezebel, and attach hooks to events such as onChange, onPass, onFail. See https://github.com/benrady/jezebel/blob/master/.jezebel for an example of this configuration.
+
+=== Jezebel "Plugins"
+
+Additional modules can easily be added to Jezebel by requiring them in your .jezebel file. The jezebel/utils module is included with Jezebel, but any node.js package included in your load path can be used. You can either use these modules in your config file, or re-export them for use in the REPL.
 
 == Acknowledgement
 

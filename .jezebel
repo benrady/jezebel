@@ -24,7 +24,10 @@ exports.settings = {
   },
   onChange: function(path, curr, prev) {
     stats.changes += 1;
-    reloadModule(path);
+    if (path.match(/.*\.js$/)) {
+      // load the most recently changed module into the $$ variable in the REPL
+      reloadModule(path);
+    }
   }
 };
 
@@ -32,4 +35,5 @@ exports.settings = {
 exports.stats = function() {
   return stats;
 }
+
 exports.files = utils.projectFiles;
