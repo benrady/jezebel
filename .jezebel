@@ -2,6 +2,11 @@ var utils = require('jezebel/utils');
 var stats;
 var context;
 
+function reloadModule(path) {
+  delete require.cache[path];
+  context.$$ = require(path);
+}
+
 exports.settings = {
   onStart: function(replSession) {
     context = replSession.context;
@@ -19,8 +24,7 @@ exports.settings = {
   },
   onChange: function(path, curr, prev) {
     stats.changes += 1;
-    delete require.cache[path];
-    context.$$ = require(path);
+    reloadModule(path);
   }
 };
 
