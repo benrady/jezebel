@@ -1,8 +1,10 @@
 var utils = require('jezebel/utils');
 var stats;
+var context;
 
 exports.settings = {
   onStart: function(replSession) {
+    context = replSession.context;
     stats = {
       passes: 0,
       fails: 0,
@@ -17,6 +19,8 @@ exports.settings = {
   },
   onChange: function(path, curr, prev) {
     stats.changes += 1;
+    delete require.cache[path];
+    context.$$ = require(path);
   }
 };
 

@@ -11,6 +11,7 @@ describe('jezebel', function() {
     spyOn(watcher, 'watchFiles');
     spyOn(childProcess, 'spawn');
     spyOn(process.stdin, 'emit');
+    spyOn(process, 'nextTick');
     spyOn(require('path'), 'exists').andCallFake(function(file, callback) {
       expect(file).toEqual(process.cwd() + '/.jezebel');
       callback(true);
@@ -116,8 +117,23 @@ describe('jezebel', function() {
     it('adds a line feed after running to re-prompt the repl', function() {
       jezebel.runTests(['spec']);
       child.on.argsForCall[0][1]();
-      expectReplEval("\n");
+      expect(process.nextTick).toHaveBeenCalled();
     });
+  });
+
+  describe('returnInRepl', function() {
+    it('sets the argument as the return value', function() {
+      returnInRepl('foo');
+      pending();
+      expect(session.context._).toEqual('foo');
+    });
+
+    it('evaluates the return value on the next tick', function() {
+      returnInRepl('foo');
+      process.nextTick.argsForCall[0][0]();
+      expectReplEval("_\n");
+    });
+    
   });
 });
 
