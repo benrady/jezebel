@@ -15,10 +15,7 @@ If you want to install the edge development version, simply clone this repo and 
 
 === Using Jezebel
 
-First, be sure that node_modules/.bin is included in your PATH.
-
   $ jezebel 
-  > runTests()
   > ................................................................
 
   Completed in 0.037 seconds
