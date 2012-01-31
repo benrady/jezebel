@@ -1,6 +1,6 @@
 describe('jezebel', function() {
   var childProcess = require('child_process'),
-      sys = require('sys');
+      sys = require('util');
   var watcher, jezebel, repl, session, settings; 
 
   beforeEach(function() {

@@ -1,4 +1,4 @@
-var utils = require('jezebel/utils');
+var utils = require('./lib/jezebel/utils');
 var stats;
 var context;
 
@@ -22,7 +22,7 @@ exports.settings = {
   onFail: function() {
     stats.fails += 1;
   },
-  onChange: function(path, curr, prev) {
+  onChange: function(path) {
     stats.changes += 1;
     if (path.match(/.*\.js$/)) {
       // load the most recently changed module into the $$ variable in the REPL
