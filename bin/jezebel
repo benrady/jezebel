@@ -1,4 +1,4 @@
-#!/usr/bin/env NODE_PATH=./lib:$NODE_PATH node
+#!/usr/bin/env node
 
 var path = require('path'),
     fs   = require('fs');
