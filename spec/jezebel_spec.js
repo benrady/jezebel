@@ -13,8 +13,10 @@ describe('jezebel', function() {
     spyOn(process.stdin, 'emit');
     spyOn(process, 'nextTick');
     spyOn(require('path'), 'exists').andCallFake(function(file, callback) {
-      expect(file).toEqual(process.cwd() + '/.jezebel');
-      callback(true);
+      if(file == process.cwd() + '/.jezebel')
+        callback(true);
+      else
+        callback(false);
     });
     require(process.cwd() + '/.jezebel').settings = settings = {};
   });

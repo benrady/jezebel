@@ -24,10 +24,11 @@ exports.settings = {
   },
   onChange: function(path) {
     stats.changes += 1;
-    if (path.match(/.*\.js$/)) {
-      // load the most recently changed module into the $$ variable in the REPL
-      reloadModule(path);
-    }
+    // Broken in Node 0.6 :-(
+    //if (path.match(/.*\.js$/)) {
+    //  // load the most recently changed module into the $$ variable in the REPL
+    //  reloadModule(path);
+    //}
   }
 };
 

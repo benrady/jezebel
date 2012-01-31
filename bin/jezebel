@@ -1,10 +1,7 @@
-#!/usr/bin/env node
+#!/usr/bin/env NODE_PATH=./lib:$NODE_PATH node
 
 var path = require('path'),
     fs   = require('fs');
-//var binDir = path.dirname(fs.realpathSync(__filename));
-//var lib  = path.join(binDir, '../lib');
-//require.paths.push(lib);
 
 var jezebel = require(path.join('../lib', 'jezebel'));
 jezebel.run();
