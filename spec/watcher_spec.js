@@ -8,7 +8,7 @@ describe('watcher', function() {
     spyOn(fs, 'unwatchFile');
     spyOn(fs, 'stat');
     spyOn(fs, 'readdir');
-    sys = require('sys');
+    sys = require('util');
     spyOn(sys, 'error');
   });
 
