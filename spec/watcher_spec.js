@@ -2,7 +2,7 @@ describe('watcher', function() {
   var watcher, fs, sys;
 
   beforeEach(function() {
-    watcher = require('jezebel/watcher');
+    watcher = require('../lib/jezebel/watcher');
     fs = require('fs');
     spyOn(fs, 'watch');
     spyOn(fs, 'unwatchFile');
