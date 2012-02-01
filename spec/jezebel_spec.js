@@ -4,8 +4,8 @@ describe('jezebel', function() {
   var watcher, jezebel, repl, session, settings; 
 
   beforeEach(function() {
-    watcher = require('jezebel/watcher');
-    jezebel = require('jezebel');
+    watcher = require('../lib/jezebel/watcher');
+    jezebel = require('../lib/jezebel');
     session = {context: {}}; 
     spyOn(jezebel.repl, 'start').andReturn(session);
     spyOn(watcher, 'watchFiles');
@@ -62,9 +62,10 @@ describe('jezebel', function() {
     });
 
     it('runs tests if the file has changed', function() {
+      var jezebelSpecPath = process.platform == "win32" ? process.cwd() + '\\spec\\jezebel_spec.js' : 'spec/jezebel_spec.js';
       jezebel.fileChanged(__filename, {mtime: new Date(100)}, {mtime: new Date(0)});
       expect(childProcess.spawn).toHaveBeenCalled();
-      expect(console.log).toHaveBeenCalledWith('Running examples in spec/jezebel_spec.js');
+      expect(console.log).toHaveBeenCalledWith('Running examples in ' + jezebelSpecPath);
     });
 
     it('does not run the tests if the file has not actually changed', function() {

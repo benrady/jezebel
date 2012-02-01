@@ -2,7 +2,7 @@ describe('test selector', function() {
   var selector;
 
   beforeEach(function() {
-    selector = require('jezebel/test_selector');
+    selector = require('../lib/jezebel/test_selector');
   });
 
   describe('find', function() {
