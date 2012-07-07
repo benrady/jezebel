@@ -12,7 +12,7 @@ describe('jezebel', function() {
     spyOn(childProcess, 'spawn');
     spyOn(process.stdin, 'emit');
     spyOn(process, 'nextTick');
-    spyOn(require('path'), 'exists').andCallFake(function(file, callback) {
+    spyOn(require('fs'), 'exists').andCallFake(function(file, callback) {
       if(file == process.cwd() + '/.jezebel')
         callback(true);
       else
